@@ -1,0 +1,42 @@
+.admin-dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-dashboard-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.admin-dashboard-content {
+    text-align: center;
+}
+
+.admin-dashboard-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.admin-dashboard-button:hover {
+    background-color: #0056b3;
+}
+
+.go-back-button {
+    background-color: #6c757d;
+}
+
+.go-back-button:hover {
+    background-color: #5a6268;
+}
+
+.admin-dashboard-report-container {
+    margin: 20px;
+}

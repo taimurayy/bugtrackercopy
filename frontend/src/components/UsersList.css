@@ -1,0 +1,43 @@
+/* src/components/UsersList.css */
+
+.users-list-container {
+    padding: 20px;
+}
+
+.users-list-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.users-list-message {
+    color: red;
+    font-weight: bold;
+}
+
+.users-list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-list-table th, .users-list-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.users-list-table th {
+    background-color: #f4f4f4;
+    text-align: left;
+}
+
+.users-list-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.users-list-button-delete {
+    background-color: red;
+    color: white;
+}

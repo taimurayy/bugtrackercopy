@@ -1,0 +1,16 @@
+/* src/components/Logout.css */
+.logout-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #dc3545; /* Bootstrap danger color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem; /* Adds spacing above the button */
+}
+
+.logout-button:hover {
+    background-color: #c82333; /* Darker shade of danger color for hover */
+}

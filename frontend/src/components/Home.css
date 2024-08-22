@@ -1,0 +1,55 @@
+/* src/components/Home.css */
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f4f8;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.home-header {
+    background-color: #4a90e2;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.home-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.home-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.home-content h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.home-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.home-footer {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    background-color: #4a90e2;
+    color: white;
+    position: absolute;
+    bottom: 0;
+}
