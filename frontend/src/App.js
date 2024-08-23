@@ -7,6 +7,7 @@ import AdminDashboard from './components/AdminDashboard';
 import DeveloperDashboard from './components/DeveloperDashboard';
 import QADashboard from './components/QADashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import image from './LOGO.png';
 import './App.css';
 
 function App() {
@@ -14,11 +15,13 @@ function App() {
         <Router>
             <div>
                 <nav className="navbar">
+                <img src={image} alt="Logo" className="logo" />
                     <ul className="navbar-list">
                         <li><Link className="navbar-link" to="/">Home</Link></li>
                         <li><Link className="navbar-link" to="/login">Login</Link></li>
                         <li><Link className="navbar-link" to="/register">Register</Link></li>
                     </ul>
+                    
                 </nav>
 
                 <Routes>
