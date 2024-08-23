@@ -20,6 +20,12 @@ export class BugReportService {
     console.log(bugReport);
     return this.bugReportRepository.save(bugReport);
   }
+  async delete(id: number): Promise<void> {
+    const result = await this.bugReportRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Bug Report with ID "${id}" not found.`);
+    }
+  }
 
   async updateStatus(id: number, updateBugReportDto: UpdateBugReportDto): Promise<BugReport> {
     const bugReport = await this.bugReportRepository.findOneBy({ id });

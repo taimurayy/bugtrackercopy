@@ -1,4 +1,4 @@
-import { Controller, Post, Patch, Param, Get, Body, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Delete, Patch, Param, Get, Body, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
 import { BugReportService } from './bug-report.service';
 import { CreateBugReportDto } from './dto/create-bug-report.dto';
 import { BugReport } from './bug-report.entity';
@@ -22,7 +22,10 @@ export class BugReportController {
   ): Promise<BugReport> {
     return this.bugReportService.updateStatus(id, updateBugReportDto);
   }
-
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<void> {
+    return this.bugReportService.delete(id);
+  }
   @Get()
   async findAll(): Promise<BugReport[]> {
     return this.bugReportService.findAll();

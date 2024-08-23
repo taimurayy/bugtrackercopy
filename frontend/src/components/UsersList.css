@@ -64,3 +64,6 @@
 .modal-content button {
     margin: 10px;
 }
+.delete-button{
+    color:red;
+}

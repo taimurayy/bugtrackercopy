@@ -20,6 +20,20 @@ const ViewReports = () => {
         fetchReports();
     }, []);
 
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this report?');
+        if (confirmDelete) {
+            try {
+                await axios.delete(`http://localhost:3000/bug-reports/${id}`);
+                setReports(reports.filter(report => report.id !== id));
+                setMessage('Report deleted successfully.');
+            } catch (error) {
+                console.error('Error deleting report:', error.message);
+                setMessage('Failed to delete the report.');
+            }
+        }
+    };
+
     return (
         <div className="view-reports-container">
             <h2 className="view-reports-heading">Bug Reports</h2>
@@ -32,7 +46,7 @@ const ViewReports = () => {
                         <th>Description</th>
                         <th>Status</th>
                         <th>Assigned ID</th>
-
+                        <th>Actions</th> {/* New Actions column for delete button */}
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +57,14 @@ const ViewReports = () => {
                             <td>{report.description}</td>
                             <td>{report.status}</td>
                             <td>{report.assigned_id}</td>
+                            <td>
+                                <button
+                                    className="delete-button"
+                                    onClick={() => handleDelete(report.id)}
+                                >
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
