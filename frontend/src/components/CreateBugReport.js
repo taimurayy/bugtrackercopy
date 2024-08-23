@@ -9,6 +9,7 @@ const CreateBugReport = () => {
     const [assigned_id, setAssignedId] = useState('');
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
+    const [file, setFile] = useState(null); 
 
     useEffect(() => {
         // Fetch the list of users when the component mounts
@@ -24,6 +25,9 @@ const CreateBugReport = () => {
 
         fetchUsers();
     }, []);
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +37,8 @@ const CreateBugReport = () => {
                 title,
                 description,
                 status,
-                assigned_id: parseInt(assigned_id, 10), // Ensure assignedId is an integer
+                assigned_id: parseInt(assigned_id, 10), // Ensure assignedId is an integer,
+                file
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -46,6 +51,7 @@ const CreateBugReport = () => {
                 setDescription('');
                 setStatus('open');
                 setAssignedId('');
+                setFile('');
             } else {
                 setMessage('Failed to create bug report. Please try again.');
             }
@@ -99,11 +105,19 @@ const CreateBugReport = () => {
                     >
                         <option value={'none'}>None</option>
                         {users.map(user => (
-                            <option key={user.id} value={user.id}>
-                                {user.id}
+                            <option key={user.username} value={user.username}>
+                                {user.username}
                             </option>
                         ))}
                     </select>
+                </label>
+                <label className="create-bug-report-label">
+                    Attach File:
+                    <input
+                        type="file"
+                        className="create-bug-report-file-input"
+                        onChange={handleFileChange}
+                    />
                 </label>
                 <button type="submit" className="create-bug-report-button">Submit</button>
             </form>
