@@ -1,5 +1,5 @@
 // src/users/users.controller.ts
-import { Body, Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { UpdateUserRoleDto } from './update-user-role.dto';
@@ -15,7 +15,12 @@ export class UsersController {
   @Put(':id/role')
     async updateRole(@Param('id') id: number, @Body() updateUserRoleDto: UpdateUserRoleDto) {
         await this.userService.updateRole(id, updateUserRoleDto);
-    }
+  }
+  @Delete(':id')
+  async remove(@Param('id') id: number) {
+      await this.userService.remove(id);
+      return { message: 'User deleted successfully.' };
+  }
   @Get('users')
   async getUsers() {
     return this.userService.getAllUsers();

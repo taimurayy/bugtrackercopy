@@ -28,8 +28,14 @@ export class UsersService {
     }
     return user;
   }
-
-    async updateRole(id: number, updateUserRoleDto: UpdateUserRoleDto): Promise<void> {
+  async remove(id: number): Promise<void> {
+    const user = await this.findOne(id);
+    if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    await this.userRepository.remove(user);
+  }
+  async updateRole(id: number, updateUserRoleDto: UpdateUserRoleDto): Promise<void> {
         const user = await this.findOne(id);
         user.roleId = updateUserRoleDto.roleId;
         await this.userRepository.save(user);
