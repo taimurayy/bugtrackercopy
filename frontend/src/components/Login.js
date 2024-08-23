@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import axios for HTTP requests
 import './Login.css'; // Import the CSS file for styling
+import { Link } from 'react-router-dom'; 
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -61,6 +62,9 @@ const Login = () => {
                     />
                 </label>
                 <button type="submit" className="login-button">Login</button>
+                <p className="login-register-link">
+                    Don't have an account? <Link to="/register" className="login-link">Register here</Link>
+                </p>
             </form>
         </div>
     );

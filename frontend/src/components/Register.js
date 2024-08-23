@@ -100,9 +100,9 @@ const Register = () => {
                         onChange={(e) => setRoleId(e.target.value)}
                         required
                     >
-                        <option value="1">Role 1</option>
-                        <option value="2">Role 2</option>
-                        <option value="3">Role 3</option>
+                        <option value="1">Developer</option>
+                        <option value="2">Admin</option>
+                        <option value="3">QA</option>
                     </select>
                 </label>
                 <button type="submit" className="register-button">Register</button>

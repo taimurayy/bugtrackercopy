@@ -53,3 +53,12 @@
     position: absolute;
     bottom: 0;
 }
+.home-register-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.home-register-link:hover {
+    text-decoration: underline;
+}
