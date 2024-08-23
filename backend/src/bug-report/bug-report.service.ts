@@ -2,20 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BugReport } from './bug-report.entity';
+import { CreateBugReportDto } from './dto/create-bug-report.dto';
 
 @Injectable()
 export class BugReportService {
   constructor(
     @InjectRepository(BugReport)
-    private bugReportRepository: Repository<BugReport>,
+    private readonly bugReportRepository: Repository<BugReport>,
   ) {}
 
-  create(bugReport: Partial<BugReport>): Promise<BugReport> {
-    const newBugReport = this.bugReportRepository.create(bugReport);
-    return this.bugReportRepository.save(newBugReport);
+  async create(createBugReportDto: CreateBugReportDto): Promise<BugReport> {
+    const bugReport = this.bugReportRepository.create(createBugReportDto);
+    console.log(bugReport);
+    return this.bugReportRepository.save(bugReport);
   }
 
-  findAll(): Promise<BugReport[]> {
+  async findAll(): Promise<BugReport[]> {
     return this.bugReportRepository.find();
   }
 }

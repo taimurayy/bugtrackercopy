@@ -6,7 +6,7 @@ const CreateBugReport = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('open');
-    const [assignedId, setAssignedId] = useState('');
+    const [assigned_id, setAssignedId] = useState('');
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
 
@@ -33,7 +33,7 @@ const CreateBugReport = () => {
                 title,
                 description,
                 status,
-                assignedId: parseInt(assignedId, 10), // Ensure assignedId is an integer
+                assigned_id: parseInt(assigned_id, 10), // Ensure assignedId is an integer
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -94,10 +94,10 @@ const CreateBugReport = () => {
                     Assigned User:
                     <select
                         className="create-bug-report-select"
-                        value={assignedId}
+                        value={assigned_id}
                         onChange={(e) => setAssignedId(e.target.value)}
                     >
-                        <option value="">None</option>
+                        <option value={'none'}>None</option>
                         {users.map(user => (
                             <option key={user.id} value={user.id}>
                                 {user.id}

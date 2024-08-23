@@ -1,15 +1,22 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-@Entity()
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+
+@Entity('bugrep')
 export class BugReport {
   @PrimaryGeneratedColumn()
-  id: number = 1;
+  id: number = 0;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   title: string = '';
 
-  @Column('text')
+  @Column({ type: 'text' })
   description: string = '';
 
-  @Column({ default: 'open' })
+  @Column({ type: 'varchar', length: 50, default: 'open' })
   status: string = 'open';
+
+  @Column({ type: 'int', nullable: true })
+  assigned_id: number | null = null;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  created_at: Date = new Date();
 }
