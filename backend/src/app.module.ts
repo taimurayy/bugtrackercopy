@@ -5,7 +5,7 @@ import { UsersModule } from './users/users.module';
 import { BugReport } from './bug-report/bug-report.entity';
 // import { JwtModule } from '@nestjs/jwt';
 import { BugReportModule } from './bug-report/bug-report.module';
-import { FileUploadModule } from './file-upload/file-upload.module';
+import { FileUploadsModule } from './file-upload/file-upload.module';
 import {FileUpload} from './file-upload/file-upload.entity';
 
 @Module({
@@ -26,7 +26,7 @@ import {FileUpload} from './file-upload/file-upload.entity';
     }),
     UsersModule,
     BugReportModule,
-    FileUploadModule,
+    FileUploadsModule,
   ],
   controllers: [],
   providers: [],

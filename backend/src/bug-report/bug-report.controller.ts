@@ -3,8 +3,6 @@ import { BugReportService } from './bug-report.service';
 import { CreateBugReportDto } from './dto/create-bug-report.dto';
 import { BugReport } from './bug-report.entity';
 import { UpdateBugReportDto } from './dto/update-bug-report.dto'; 
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Express } from 'express';
 
 @Controller('bug-reports')
 export class BugReportController {
@@ -31,21 +29,5 @@ export class BugReportController {
     return this.bugReportService.findAll();
   }
 
-  @Post(':id/upload')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(
-    @Param('id') id: number,
-    @UploadedFile() file: Express.Multer.File,
-    @Body('bugReportId') bugReportId: number,
-  ) {
-    if (!file) {
-      throw new BadRequestException('No file uploaded');
-    }
 
-    try {
-      return await this.bugReportService.uploadFile(file, bugReportId);
-    } catch (error) {
-      throw new BadRequestException('Failed to upload file');
-    }
-  }
 }

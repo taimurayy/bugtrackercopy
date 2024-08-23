@@ -1,39 +1,30 @@
-import { Controller, Post, Body, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, Req, BadRequestException, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { Request } from 'express';
-import { FileUploadService } from './file-upload.service';
-import { FileUpload } from './file-upload.entity';
+import { multerConfig } from '../common/multer/multer.config';
+import { FileUploadsService } from './file-upload.service';
+import { Request } from 'express'; // Import the Request type from express
 
-@Controller('file-upload')
-export class FileUploadController {
-  constructor(private readonly fileUploadService: FileUploadService) {}
+@Controller('file-uploads')
+export class FileUploadsController {
+  constructor(private readonly fileUploadsService: FileUploadsService) {}
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file', {
-    storage: diskStorage({
-      destination: './uploads',
-      filename: (req: Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) => {
-        const filename = `${Date.now()}-${file.originalname}`;
-        callback(null, filename);
-      },
-    }),
-    fileFilter: (req: Request, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void) => {
-      if (!file.mimetype.startsWith('image/')) {
-        return callback(new Error('Only image files are allowed!'), false);
-      }
-      callback(null, true);
-    },
-  }))
-  async uploadFile(@UploadedFile() file: Express.Multer.File, @Body('bugReportId') bugReportId: number) {
+  @Post('fileupload')
+  @UseInterceptors(FileInterceptor('file', multerConfig))
+  async uploadFile(
+    @Req() req: Request, // Add the Request type here
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const bugReportId = req.params.bugReportId;
     if (!file) {
       throw new BadRequestException('No file uploaded');
     }
 
-    try {
-      return await this.fileUploadService.saveFile(file, bugReportId);
-    } catch (error) {
-      throw new BadRequestException('Failed to upload file');
-    }
+    // Save file information associated with the bug report
+    await this.fileUploadsService.saveFile(bugReportId, file);
+
+    return {
+      message: 'File uploaded successfully',
+      filename: file.filename,
+    };
   }
 }

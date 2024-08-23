@@ -9,7 +9,7 @@ const CreateBugReport = () => {
     const [assigned_id, setAssignedId] = useState('');
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
-    const [file, setFile] = useState(null); 
+    const [file, setFile] = useState(null);
 
     useEffect(() => {
         // Fetch the list of users when the component mounts
@@ -25,8 +25,39 @@ const CreateBugReport = () => {
 
         fetchUsers();
     }, []);
+
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
+    };
+
+    const uploadFile = async (bugReportId) => {
+        if (!file) return; // If no file selected, skip upload
+
+        try {
+            const token = localStorage.getItem('token');
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await axios.post(
+                `http://localhost:3000/fileupload/fileupload`, // Adjusted URL
+                formData,
+                {
+                  headers: {
+                    'Authorization': `Bearer ${token}`, // Bearer token for authorization
+                    'Content-Type': 'multipart/form-data', // Content type for file upload
+                  },
+                }
+              );
+
+            if (response.status === 200) {
+                setMessage('File uploaded successfully!');
+            } else {
+                setMessage('Failed to upload file. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            setMessage('Failed to upload file. Please try again.');
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -37,8 +68,7 @@ const CreateBugReport = () => {
                 title,
                 description,
                 status,
-                assigned_id: parseInt(assigned_id, 10), // Ensure assignedId is an integer,
-                file
+                assigned_id: parseInt(assigned_id, 10), // Ensure assignedId is an integer
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -51,7 +81,12 @@ const CreateBugReport = () => {
                 setDescription('');
                 setStatus('open');
                 setAssignedId('');
-                setFile('');
+                setFile(null);
+
+                // Upload file if present
+                if (file) {
+                    await uploadFile(response.data.id); // Assuming the response contains the bug report ID
+                }
             } else {
                 setMessage('Failed to create bug report. Please try again.');
             }
