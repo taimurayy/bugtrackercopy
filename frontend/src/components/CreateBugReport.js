@@ -105,7 +105,7 @@ const CreateBugReport = () => {
                     >
                         <option value={'none'}>None</option>
                         {users.map(user => (
-                            <option key={user.username} value={user.username}>
+                            <option key={user.id} value={user.id}>
                                 {user.username}
                             </option>
                         ))}
