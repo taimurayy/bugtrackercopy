@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { BugReport } from './bug-report/bug-report.entity';
 // import { JwtModule } from '@nestjs/jwt';
 import { BugReportModule } from './bug-report/bug-report.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
+import {FileUpload} from './file-upload/file-upload.entity';
 
 @Module({
   imports: [
@@ -19,11 +21,12 @@ import { BugReportModule } from './bug-report/bug-report.module';
       username: 'postgres',
       password: '123',
       database: 'bug_tracker',
-      entities: [User,BugReport],
+      entities: [User,BugReport,FileUpload],
       synchronize: true, // Set to false in production
     }),
     UsersModule,
     BugReportModule,
+    FileUploadModule,
   ],
   controllers: [],
   providers: [],
