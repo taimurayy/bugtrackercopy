@@ -1,4 +1,5 @@
 git clone https://github.com/taimurayy/bugtrackercopy.git
+import the sql file in postgre server
 cd BUGTRACKERCOPY
 cd backend
 npm install
