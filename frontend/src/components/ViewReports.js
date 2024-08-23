@@ -1,49 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './ViewReports.css'; // Import the CSS file for styling
+import axios from 'axios'; // Make sure to install axios if you haven't
 
 const ViewReports = () => {
     const [reports, setReports] = useState([]);
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        // Simulate fetching bug reports
         const fetchReports = async () => {
             try {
-                // Dummy data for testing
-                const dummyData = [
-                    {
-                        id: 1,
-                        title: 'Bug in Login Page',
-                        description: 'Error when trying to log in with correct credentials.',
-                        status: 'open',
-                        assignedId: 2,
-                        reportedId: 1,
-                    },
-                    {
-                        id: 2,
-                        title: 'Issue with Dashboard',
-                        description: 'Dashboard crashes on loading the user data.',
-                        status: 'closed',
-                        assignedId: null,
-                        reportedId: 3,
-                    },
-                    {
-                        id: 3,
-                        title: 'Broken Links',
-                        description: 'Several links are broken on the contact page.',
-                        status: 'open',
-                        assignedId: 4,
-                        reportedId: 2,
-                    },
-                ];
-                
-                // Simulating network delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                setReports(dummyData);
+                const response = await axios.get('http://localhost:3000/bug-reports');
+                setReports(response.data);
             } catch (error) {
                 console.error('Error fetching bug reports:', error.message);
-                
+                setMessage('Failed to load bug reports.');
             }
         };
 
@@ -62,7 +32,7 @@ const ViewReports = () => {
                         <th>Description</th>
                         <th>Status</th>
                         <th>Assigned ID</th>
-                        <th>Reported ID</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -72,8 +42,7 @@ const ViewReports = () => {
                             <td>{report.title}</td>
                             <td>{report.description}</td>
                             <td>{report.status}</td>
-                            <td>{report.assignedId !== null ? report.assignedId : 'N/A'}</td>
-                            <td>{report.reportedId}</td>
+                            <td>{report.assigned_id}</td>
                         </tr>
                     ))}
                 </tbody>
