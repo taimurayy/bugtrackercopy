@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './components/Login';
@@ -8,7 +7,6 @@ import AdminDashboard from './components/AdminDashboard';
 import DeveloperDashboard from './components/DeveloperDashboard';
 import QADashboard from './components/QADashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import Logout from './components/Logout';
 import './App.css';
 
 function App() {
@@ -25,9 +23,9 @@ function App() {
 
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
-                    <Route path="/developer-dashboard" element={<DeveloperDashboard />} />
-                    <Route path="/qa-dashboard" element={<QADashboard />} />
+                    <Route path="/admin-dashboard" element={<ProtectedRoute element={AdminDashboard} />} />
+                    <Route path="/developer-dashboard" element={<ProtectedRoute element={DeveloperDashboard} />} />
+                    <Route path="/qa-dashboard" element={<ProtectedRoute element={QADashboard} />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                 </Routes>
