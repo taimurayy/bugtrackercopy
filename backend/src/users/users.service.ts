@@ -1,8 +1,9 @@
 // src/users/users.service.ts
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { UpdateUserRoleDto } from './update-user-role.dto';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,19 @@ export class UsersService {
     this.logger.log(`User created with id: ${savedUser.id}`);
     return savedUser;
   }
+  async findOne(id: number): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user;
+  }
+
+    async updateRole(id: number, updateUserRoleDto: UpdateUserRoleDto): Promise<void> {
+        const user = await this.findOne(id);
+        user.roleId = updateUserRoleDto.roleId;
+        await this.userRepository.save(user);
+    }
   async getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
   }

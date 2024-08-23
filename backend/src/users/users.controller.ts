@@ -1,7 +1,8 @@
 // src/users/users.controller.ts
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Get, Put, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
+import { UpdateUserRoleDto } from './update-user-role.dto';
 
 @Controller('users')
 export class UsersController {
@@ -11,6 +12,10 @@ export class UsersController {
   async register(@Body() userDto: Partial<User>): Promise<User> {
     return this.userService.create(userDto);
   }
+  @Put(':id/role')
+    async updateRole(@Param('id') id: number, @Body() updateUserRoleDto: UpdateUserRoleDto) {
+        await this.userService.updateRole(id, updateUserRoleDto);
+    }
   @Get('users')
   async getUsers() {
     return this.userService.getAllUsers();

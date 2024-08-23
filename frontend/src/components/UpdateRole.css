@@ -1,0 +1,35 @@
+.update-role-container {
+    padding: 20px;
+}
+
+.update-role-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.update-role-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-role-form label {
+    margin-bottom: 8px;
+}
+
+.update-role-form select {
+    margin-bottom: 12px;
+    padding: 8px;
+}
+
+.update-role-form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-role-form button:hover {
+    background-color: #0056b3;
+}

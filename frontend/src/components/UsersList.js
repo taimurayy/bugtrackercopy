@@ -5,6 +5,9 @@ import './UsersList.css'; // Import the CSS file for styling
 const UsersList = () => {
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState(null);
+    const [newRole, setNewRole] = useState('');
 
     useEffect(() => {
         // Fetch the list of users when the component mounts
@@ -40,9 +43,8 @@ const UsersList = () => {
     };
 
     const handleUpdate = (userId) => {
-        // Implement update functionality here
-        console.log(`Update user with ID: ${userId}`);
-        // Example: redirect to an update form or open a modal for editing
+        setSelectedUserId(userId);
+        setShowModal(true);
     };
 
     const handleDelete = async (userId) => {
@@ -59,6 +61,29 @@ const UsersList = () => {
         } catch (error) {
             console.error('Error deleting user:', error.response || error.message);
             setMessage('Failed to delete user.');
+        }
+    };
+
+    const handleRoleUpdate = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.put(`http://localhost:3000/users/${selectedUserId}/role`, { roleId: newRole }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            setShowModal(false);
+            // Refresh the user list after successful role update
+            const response = await axios.get('http://localhost:3000/users/users', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            setUsers(response.data);
+            setMessage('Role updated successfully.');
+        } catch (error) {
+            console.error('Error updating role:', error.response || error.message);
+            setMessage('Failed to update role.');
         }
     };
 
@@ -101,6 +126,23 @@ const UsersList = () => {
                     ))}
                 </tbody>
             </table>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Update User Role</h3>
+                        <label htmlFor="role">New Role:</label>
+                        <select id="role" value={newRole} onChange={(e) => setNewRole(e.target.value)}>
+                            <option value="">Select Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Developer</option>
+                            <option value="3">QA</option>
+                        </select>
+                        <button onClick={handleRoleUpdate}>Update Role</button>
+                        <button onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
