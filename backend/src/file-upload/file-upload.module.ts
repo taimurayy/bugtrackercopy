@@ -1,14 +1,14 @@
-// file-upload.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FileUploadController } from './file-upload.controller';
+import { FileUpload } from './file-upload.entity';
 import { FileUploadService } from './file-upload.service';
-import { FileUpload } from './file-upload.entity'; // Assuming this is the entity
+import { BugReport } from '../bug-report/bug-report.entity'; // Import BugReport entity if needed
 
 @Module({
-  imports: [TypeOrmModule.forFeature([FileUpload])], // Import the repository
-  controllers: [FileUploadController],
+  imports: [
+    TypeOrmModule.forFeature([FileUpload, BugReport]), // Ensure BugReport is included if needed
+  ],
   providers: [FileUploadService],
-  exports: [FileUploadService], // Export the service if needed elsewhere
+  exports: [FileUploadService], // Export FileUploadService if it needs to be used in other modules
 })
 export class FileUploadModule {}

@@ -1,6 +1,6 @@
-import { Controller, Post, Body, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Post, Body, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage, DiskStorageOptions, FileFilterCallback } from 'multer';
+import { diskStorage } from 'multer';
 import { Request } from 'express';
 import { FileUploadService } from './file-upload.service';
 import { FileUpload } from './file-upload.entity';
@@ -26,6 +26,14 @@ export class FileUploadController {
     },
   }))
   async uploadFile(@UploadedFile() file: Express.Multer.File, @Body('bugReportId') bugReportId: number) {
-    return await this.fileUploadService.saveFile(file, bugReportId);
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
+    try {
+      return await this.fileUploadService.saveFile(file, bugReportId);
+    } catch (error) {
+      throw new BadRequestException('Failed to upload file');
+    }
   }
 }
