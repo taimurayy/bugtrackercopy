@@ -36,11 +36,13 @@ const CreateBugReport = () => {
 
         try {
             const token = localStorage.getItem('token');
+            const userid=localStorage.getItem('user_id');
             const formData = new FormData();
             formData.append('file', file);
+            formData.append('bugReportId', userid);
             console.log(formData);
             const response = await axios.post(
-                `http://localhost:3000/fileupload`, // Adjusted URL
+                `http://localhost:3000/file-uploads`, // Adjusted URL
                 formData,
                 {
                   headers: {
@@ -53,7 +55,7 @@ const CreateBugReport = () => {
             if (response.status === 200) {
                 setMessage('File uploaded successfully!');
             } else {
-                setMessage('Failed to upload file. Please try again.');
+                setMessage('uploaded file');
             }
         } catch (error) {
             console.error('Error uploading file:', error);

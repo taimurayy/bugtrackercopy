@@ -10,13 +10,14 @@ export class FileUploadsService {
     private readonly fileUploadRepository: Repository<FileUpload>,
   ) {}
 
-  async saveFile(bugReportId: string, file: Express.Multer.File) {
+  async saveFile(bugReportId: number, file: Express.Multer.File) {
     // Create a new FileUpload instance and save it to the database
     const fileUpload = new FileUpload();
-    fileUpload.filename = file.filename;
+    fileUpload.id = bugReportId;
+    fileUpload.filename = file.originalname; // Use originalname for the original filename
     fileUpload.path = file.path;
-    fileUpload.bugReportId = parseInt(bugReportId, 10);
+    fileUpload.bugReportId = bugReportId;
     console.log(fileUpload);
-    await this.fileUploadRepository.save(fileUpload);
+    return this.fileUploadRepository.save(fileUpload);
   }
 }

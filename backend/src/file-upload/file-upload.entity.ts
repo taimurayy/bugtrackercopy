@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
+@Entity('FileUpload')
 export class FileUpload {
   @PrimaryGeneratedColumn()
   id: number = 0; // Initialize with a default value

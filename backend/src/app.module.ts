@@ -6,7 +6,7 @@ import { BugReport } from './bug-report/bug-report.entity';
 // import { JwtModule } from '@nestjs/jwt';
 import { BugReportModule } from './bug-report/bug-report.module';
 import { FileUploadsModule } from './file-upload/file-upload.module';
-import {FileUpload} from './file-upload/file-upload.entity';
+import { FileUpload } from './file-upload/file-upload.entity';
 
 @Module({
   imports: [
