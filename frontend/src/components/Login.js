@@ -19,10 +19,11 @@ const Login = () => {
                 password,
             });
 
-            const { roleId, token } = response.data;
+            const { roleId, id, token } = response.data;
             const expirationTime = Date.now() + 60 * 60 * 1000; // Token expires in 1 hour
 
             localStorage.setItem('token', token); // Store the token
+            localStorage.setItem('user_id',id);
             localStorage.setItem('roleId', roleId); // Store the roleId
             localStorage.setItem('tokenExpiration', expirationTime); // Store the expiration time
 
@@ -30,6 +31,7 @@ const Login = () => {
             setTimeout(() => {
                 localStorage.removeItem('token');
                 localStorage.removeItem('roleId');
+                localStorage.removeItem('user_id');
                 localStorage.removeItem('tokenExpiration');
                 alert('Session expired. Please log in again.');
                 navigate('/login'); // Redirect to login after token expires

@@ -41,22 +41,22 @@ const ViewReports = () => {
             <table className="view-reports-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Assigned ID</th>
+                        <th>Reported ID</th>
                         <th>Actions</th> {/* New Actions column for delete button */}
                     </tr>
                 </thead>
                 <tbody>
                     {reports.map(report => (
                         <tr key={report.id}>
-                            <td>{report.id}</td>
                             <td>{report.title}</td>
                             <td>{report.description}</td>
                             <td>{report.status}</td>
                             <td>{report.assigned_id}</td>
+                            <td>{report.id}</td>
                             <td>
                                 <button
                                     className="delete-button"

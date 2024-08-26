@@ -3,6 +3,7 @@ import axios from 'axios';
 import './CreateBugReport.css'; // Import the CSS file for styling
 
 const CreateBugReport = () => {
+    const [id, setid] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('open');
@@ -64,7 +65,9 @@ const CreateBugReport = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
+            const userid=localStorage.getItem('user_id');
             const response = await axios.post('http://localhost:3000/bug-reports', {
+                id: parseInt(userid,10),
                 title,
                 description,
                 status,
@@ -77,6 +80,7 @@ const CreateBugReport = () => {
 
             if (response.status === 201) {
                 setMessage('Bug report created successfully!');
+                setid(userid);
                 setTitle('');
                 setDescription('');
                 setStatus('open');

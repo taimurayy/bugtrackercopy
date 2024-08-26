@@ -26,10 +26,10 @@ export class UsersController {
     return this.userService.getAllUsers();
   }
   @Post('login')
-  async login(@Body() { email, password }: { email: string; password: string }): Promise<{ roleId: number }> {
+  async login(@Body() { email, password }: { email: string; password: string }): Promise<{ roleId: number, id: number }> {
     const user = await this.userService.validateUser(email, password);
     if (user) {
-      return { roleId: user.roleId };
+      return { roleId: user.roleId , id : user.id };
     }
     throw new Error('Invalid credentials');
   }
