@@ -102,8 +102,8 @@ const Register = () => {
                         onChange={(e) => setRoleId(e.target.value)}
                         required
                     >
-                        <option value="1">Developer</option>
-                        <option value="2">Admin</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Developer</option>
                         <option value="3">QA</option>
                     </select>
                 </label>
