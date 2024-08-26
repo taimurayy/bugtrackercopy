@@ -13,7 +13,7 @@ export class FileUploadsService {
 
   async saveFile(bugReportId: number, file: Express.Multer.File) {
     const query = `
-      INSERT INTO file_upload (id, filename, path, bugReportId, uploaded_at)
+      INSERT INTO file_upload (id, filename, path, "bugReportId", "uploadedAt")
       VALUES ($1, $2, $3, $4, NOW())
     `;
 
