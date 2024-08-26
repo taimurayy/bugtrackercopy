@@ -49,7 +49,7 @@ const Login = () => {
             }
         } catch (error) {
             console.error('Login failed:', error);
-            alert('Login failed. Please try again.');
+            alert('Invalid credentials. Please try again.');
         }
     };
 
