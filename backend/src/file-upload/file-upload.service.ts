@@ -34,4 +34,10 @@ export class FileUploadsService {
       uploadedAt: new Date(), // You can return additional fields if needed
     };
   }
+  async getAllFiles(): Promise<FileUpload[]> {
+    return this.fileUploadRepository.find({
+      order: { uploadedAt: 'DESC' }, // Optional: Order by upload date
+    });
+
+  }
 }

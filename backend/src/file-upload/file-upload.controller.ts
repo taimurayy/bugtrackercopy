@@ -1,8 +1,9 @@
-import { Controller,Body,Param, Post, UploadedFile, UseInterceptors, Req, BadRequestException, UseGuards } from '@nestjs/common';
+import { Controller,Body,Get, Param, Post, UploadedFile, UseInterceptors, Req, BadRequestException, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../common/multer/multer.config';
 import { FileUploadsService } from './file-upload.service';
 import { Request } from 'express'; // Import the Request type from express
+import { FileUpload } from './file-upload.entity';
 
 @Controller('file-uploads')
 export class FileUploadsController {
@@ -27,5 +28,11 @@ export class FileUploadsController {
       message: 'File uploaded successfully',
       filename: file.filename,
     };
+
+  }
+
+  @Get()
+  async getAllFiles(): Promise<FileUpload[]> {
+    return this.fileUploadsService.getAllFiles();
   }
 }
